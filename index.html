@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veri Dedektifleri: Gizemli Ada Vakası | 6. Sınıf Matematik Oyunu (Tek Dosya Çevrimdışı Sürüm)</title>
+  <style>
+    :root {
+      --bg-dark: #020617;
+      --card-bg: #0f172a;
+      --card-border: #1e293b;
+      --primary: #f59e0b;
+      --primary-hover: #fbbf24;
+      --accent-blue: #38bdf8;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    
+    /* Top Bar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(2, 6, 23, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .logo-dot { width: 10px; height: 10px; background: var(--primary); border-radius: 2px; }
+    nav { display: flex; gap: 8px; overflow-x: auto; }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { color: #fff; background: rgba(30, 41, 59, 0.6); }
+    .nav-btn.active {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: var(--primary);
+    }
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .icon-btn {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .icon-btn:hover { color: #fff; border-color: #334155; }
+    
+    /* Main container */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.3s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Card styling */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .card-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
+
+    /* Hero section */
+    .hero-box {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      border: 1px solid #312e81;
+      border-radius: 24px;
+      padding: 36px 28px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .hero-title { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 12px; }
+    .hero-desc { font-size: 0.95rem; color: #cbd5e1; max-width: 720px; line-height: 1.6; margin-bottom: 24px; }
+    .cta-btn {
+      background: var(--primary);
+      color: #020617;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .cta-btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
+    .secondary-btn {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid #334155;
+      color: #f1f5f9;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 12px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .secondary-btn:hover { background: #1e293b; color: #fff; }
+
+    /* Level select grid */
+    .level-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .level-card {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+    .level-card:hover { border-color: rgba(245, 158, 11, 0.5); transform: translateY(-2px); }
+    .level-tag { font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase; }
+    .level-name { font-size: 1.1rem; font-weight: 700; color: #fff; margin: 4px 0 8px; }
+    .level-intro { font-size: 0.82rem; color: #94a3b8; line-height: 1.5; margin-bottom: 16px; }
+
+    /* Active game view layout */
+    .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 860px) { .game-grid { grid-template-columns: 1fr; } }
+    .hud-bar {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .step-pills { display: flex; gap: 8px; }
+    .step-pill {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: #1e293b;
+      color: #94a3b8;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-pill.active { background: var(--primary); color: #020617; }
+    .step-pill.completed { background: var(--accent-green); color: #020617; }
+
+    /* Question box and options */
+    .stage-label { font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 4px; }
+    .question-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .hint-box {
+      background: rgba(2, 6, 23, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      margin-bottom: 16px;
+    }
+    .hint-box strong { color: var(--primary); }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: #020617;
+      border: 1px solid var(--card-border);
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      margin-bottom: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.15s;
+    }
+    .option-btn:hover { background: #1e293b; border-color: #475569; }
+    .option-btn.selected { background: rgba(245, 158, 11, 0.15); border-color: var(--primary); color: var(--primary); font-weight: 600; }
+    .option-btn.correct { background: rgba(16, 185, 129, 0.2); border-color: var(--accent-green); color: #a7f3d0; font-weight: 600; }
+    .option-btn.wrong { background: rgba(239, 68, 68, 0.2); border-color: var(--accent-red); color: #fecaca; }
+    .option-letter {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+    }
+    .feedback-box {
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      margin: 14px 0;
+      line-height: 1.5;
+    }
+    .feedback-box.correct { background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-green); color: #a7f3d0; }
+    .feedback-box.wrong { background: rgba(239, 68, 68, 0.15); border: 1px solid var(--accent-red); color: #fecaca; }
+
+    /* SVG Chart */
+    .chart-container {
+      background: #020617;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 12px;
+    }
+    svg text { font-family: inherit; }
+
+    /* Probability wheels & marble bags */
+    .sim-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .wheel-wrap { position: relative; width: 260px; height: 260px; margin: 20px auto; }
+    .wheel-pointer {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 20px solid var(--primary);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    }
+    .wheel-svg {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 4px solid #334155;
+      transition: transform 2.4s cubic-bezier(0.15, 0.9, 0.25, 1);
+    }
+    .bag-preview {
+      background: #020617;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      min-height: 140px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .marble-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      box-shadow: inset -2px -2px 4px rgba(0,0,0,0.5), 0 2px 5px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--card-border); }
+    th { color: var(--text-muted); font-weight: 600; }
+    .tally { font-size: 1.1rem; color: var(--accent-green); letter-spacing: 2px; }
+
+    /* Teacher Guide styling */
+    .guide-section {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .guide-badge { font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 4px; }
+    .guide-heading { font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .rubric-table th { background: #020617; }
+    .rubric-table td { font-size: 0.8rem; line-height: 1.4; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 16px 24px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: auto;
+    }
+    
+    @media print {
+      header, footer, .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+      .card, .guide-section { border: 1px solid #ccc !important; background: white !important; color: black !important; }
+      .hero-title, .card-title, h1, h2, h3 { color: black !important; }
+      p, span, td, th { color: #222 !important; }
+    }
+  </style>
+<script src="/_aistudio-iframe.js?v=6634132a"></script></head>
+<body>
+
+  <!-- Top Bar -->
+  <header>
+    <div class="logo" onclick="switchTab('game')">
+      <span class="logo-dot"></span>
+      <span>Veri Dedektifleri</span>
+      <span style="font-size: 0.75rem; font-weight: normal; color: var(--text-muted); margin-left: 4px;">· 6. Sınıf Matematik</span>
+    </div>
+
+    <nav>
+      <button class="nav-btn active" id="btn-tab-game" onclick="switchTab('game')">Vaka Macerası</button>
+      <button class="nav-btn" id="btn-tab-workshop" onclick="switchTab('workshop')">Veri & Grafik Atölyesi</button>
+      <button class="nav-btn" id="btn-tab-prob" onclick="switchTab('prob')">Olasılık Laboratuvarı</button>
+      <button class="nav-btn" id="btn-tab-guide" onclick="switchTab('guide')">Öğretmen Rehberi</button>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" onclick="toggleAudio()" id="audio-btn">🔊 Ses Açık</button>
+      <button class="icon-btn" onclick="window.print()" title="Yazdır">🖨️ Yazdır</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- TAB 1: GAME SCREEN -->
+    <div id="tab-game" class="tab-content active">
+      <!-- Title Screen -->
+      <div id="game-intro" class="hero-box">
+        <div class="hero-badge">MEB 6. Sınıf Matematik 2. Tema: Veriden Olasılığa</div>
+        <h1 class="hero-title">Veri Dedektifleri:<br><span style="color: var(--primary);">Gizemli Ada Vakası</span></h1>
+        <p class="hero-desc">
+          Gizemli Ada'daki esrarengiz hazine sandıklarını açmak ve sahte şüphelileri elemek için verileri topla,
+          çetele ve sıklık tablosunu oluştur, sütun grafiğini oku, aritmetik ortalama ve açıklığı hesapla;
+          antik olasılık çarkını çevirerek gizemi çöz!
+        </p>
+        <div>
+          <button class="cta-btn" onclick="startCase('case1')">Maceraya Başla (Seviye 1) →</button>
+          <button class="secondary-btn" onclick="switchTab('guide')">Öğretmen Kılavuzunu Oku</button>
+        </div>
+      </div>
+
+      <!-- Level Selection Cards -->
+      <div id="level-selection-container">
+        <div style="margin-bottom: 14px;">
+          <h2 style="font-size: 1.15rem; font-weight: 700; color: #fff;">Soruşturma Vaka Dosyaları</h2>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Her seviye, veriden olasılığa 4 aşamalı soruşturma içerir.</span>
+        </div>
+        <div class="level-grid">
+          <div class="level-card">
+            <div>
+              <span class="level-tag">Seviye 1: Çırak Dedektif</span>
+              <h3 class="level-name">Korsan Gemisindeki Meyve Kasaları</h3>
+              <p class="level-intro">Tek veri grubu sıklık tablosu, sütun grafiği, aritmetik ortalama ve torbadan meyve çıkma olasılığı analizi.</p>
+            </div>
+            <button class="cta-btn" style="padding: 8px 14px; font-size: 0.85rem;" onclick="startCase('case1')">Vakayı Çöz →</button>
+          </div>
+
+          <div class="level-card">
+            <div>
+              <span class="level-tag">Seviye 2: Usta Dedektif</span>
+              <h3 class="level-name">Gizemli Mağara & İkili Grup Analizi</h3>
+              <p class="level-intro">Gündüz ve Gece ekiplerinin 5 günlük taş verileri, ikili sıklık tablosu, ikili sütun grafiği, açıklık ile istikrar kıyaslaması.</p>
+            </div>
+            <button class="cta-btn" style="padding: 8px 14px; font-size: 0.85rem;" onclick="startCase('case2')">Vakayı Çöz →</button>
+          </div>
+
+          <div class="level-card">
+            <div>
+              <span class="level-tag">Seviye 3: Efsanevi Baş Dedektif</span>
+              <h3 class="level-name">Tapınak Şifresi & Olasılık Çarkı</h3>
+              <p class="level-intro">Aritmetik ortalamadan eksik veriyi bulma, açıklık değişimi ve 8 dilimli renk çarkında kesin/imkansız/eş olasılık tespiti.</p>
+            </div>
+            <button class="cta-btn" style="padding: 8px 14px; font-size: 0.85rem;" onclick="startCase('case3')">Vakayı Çöz →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Case Playing UI -->
+      <div id="game-play" style="display: none;">
+        <div class="hud-bar">
+          <div>
+            <span id="hud-level-title" style="font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase;"></span>
+            <h3 id="hud-case-title" style="font-size: 1.05rem; font-weight: 700; color: #fff;"></h3>
+          </div>
+          <div class="step-pills">
+            <div class="step-pill" id="step-pill-0">1</div>
+            <div class="step-pill" id="step-pill-1">2</div>
+            <div class="step-pill" id="step-pill-2">3</div>
+            <div class="step-pill" id="step-pill-3">4</div>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 0.75rem; color: var(--text-muted); display: block;">Dedektif Puanı</span>
+            <span id="hud-score" class="font-mono" style="font-size: 1.05rem; font-weight: 700; color: var(--primary);">0 Puan</span>
+          </div>
+        </div>
+
+        <div class="game-grid">
+          <!-- Left: Evidence & Live Chart -->
+          <div class="card">
+            <div class="card-title">🔍 Delil Dosyası & Canlı Sütun Grafiği</div>
+            <div class="card-subtitle" id="evidence-subtitle">Kayıt defterindeki doğrulanmış veriler</div>
+            <div id="chart-viewport" class="chart-container"></div>
+            <div id="raw-evidence-box" style="margin-top: 14px; padding: 12px; background: #020617; border-radius: 10px; font-size: 0.8rem;"></div>
+          </div>
+
+          <!-- Right: Questions and Terminal -->
+          <div class="card">
+            <div class="stage-label" id="question-stage">1. Adım: Sıklık Tablosu</div>
+            <h3 class="question-title" id="question-text">Soru metni yükleniyor...</h3>
+            <div class="hint-box" id="hint-box">💡 <strong>İpucu: </strong><span id="hint-text"></span></div>
+
+            <div id="options-container"></div>
+
+            <div id="feedback-container"></div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+              <button class="secondary-btn" style="margin: 0; padding: 8px 14px;" onclick="resetCase()">↩ Başa Dön</button>
+              <button id="submit-answer-btn" class="cta-btn" onclick="submitAnswer()">Cevabı Onayla</button>
+              <button id="next-step-btn" class="cta-btn" style="display: none; background: var(--accent-green);" onclick="nextStep()">Sonraki Aşamaya Geç →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Victory Screen -->
+      <div id="game-victory" class="card" style="display: none; text-align: center; max-width: 600px; margin: 30px auto; padding: 40px;">
+        <div style="font-size: 3rem; margin-bottom: 12px;">🏆</div>
+        <div class="hero-badge">VAKA BAŞARIYLA AYDINLATILDI</div>
+        <h2 style="font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 8px;">Tebrikler Usta Dedektif!</h2>
+        <p id="victory-desc" style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 20px;"></p>
+        <div style="background: #020617; border: 1px solid var(--card-border); border-radius: 12px; padding: 16px; margin-bottom: 24px; text-align: left; font-size: 0.85rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <span style="color: var(--text-muted);">Kazanılan Nişan:</span>
+            <strong id="victory-reward" style="color: var(--primary);"></strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Toplam Puan:</span>
+            <strong id="victory-score" class="font-mono" style="color: var(--accent-green);">100 Puan</strong>
+          </div>
+        </div>
+        <button class="cta-btn" onclick="returnToLevelSelect()">Diğer Vakalara Geç</button>
+      </div>
+    </div>
+
+    <!-- TAB 2: DATA & WORKSHOP -->
+    <div id="tab-workshop" class="tab-content">
+      <div class="card">
+        <div class="hero-badge">MEB M.6.4.1 KAZANIMLARI · SERBEST MATEMATİK ATÖLYESİ</div>
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 6px;">İnteraktif Veri, Çetele ve İkili Sütun Grafiği Laboratuvarı</h2>
+        <p style="font-size: 0.85rem; color: #cbd5e1;">Kendi sınıf araştırmanızı oluşturun; otomatik çetele çizgileri, sıklık tablosu, ikili sütun grafiği ve adım adım ortalama/açıklık analizini canlı inceleyin.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📊 Canlı Çetele ve Sıklık Tablosu</div>
+        <div class="card-subtitle">Satırları düzenleyerek anlık hesaplamaları görün.</div>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Kategori / Gün</th>
+                <th style="color: var(--primary);">A Grubu (Frekans)</th>
+                <th style="color: var(--accent-blue);">B Grubu (Frekans)</th>
+                <th style="color: var(--accent-green);">Otomatik Çetele (A)</th>
+              </tr>
+            </thead>
+            <tbody id="workshop-table-body"></tbody>
+            <tfoot>
+              <tr style="font-weight: 700; background: rgba(2, 6, 23, 0.6);">
+                <td>TOPLAM</td>
+                <td id="ws-total-a" style="color: var(--primary);" class="font-mono">0</td>
+                <td id="ws-total-b" style="color: var(--accent-blue);" class="font-mono">0</td>
+                <td style="color: var(--text-muted); font-size: 0.8rem;">Toplam Frekans Doğrulandı</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <div class="game-grid">
+        <div class="card">
+          <div class="card-title">📈 Dinamik Sütun Grafiği</div>
+          <div id="workshop-chart-container" class="chart-container"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🧮 Aritmetik Ortalama & Açıklık Adımları</div>
+          <div style="background: #020617; border: 1px solid var(--card-border); border-radius: 12px; padding: 16px; margin-bottom: 14px; font-size: 0.85rem;">
+            <div style="color: var(--primary); font-weight: 700; margin-bottom: 4px;">A Grubu İstatistikleri:</div>
+            <div id="ws-stats-a">Toplam: 0 | Ortalama: 0 | Açıklık: 0</div>
+            <div style="color: var(--accent-blue); font-weight: 700; margin-top: 10px; margin-bottom: 4px;">B Grubu İstatistikleri:</div>
+            <div id="ws-stats-b">Toplam: 0 | Ortalama: 0 | Açıklık: 0</div>
+          </div>
+          <div style="font-size: 0.8rem; color: #cbd5e1; line-height: 1.5; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 12px; border-radius: 10px;">
+            💡 <strong>İstikrar Kuralı:</strong> Açıklığı daha küçük olan grup daha tutarlı ve dengelidir.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: PROBABILITY LAB -->
+    <div id="tab-prob" class="tab-content">
+      <div class="card">
+        <div class="hero-badge">MEB M.6.4.2 KAZANIMLARI · BASİT OLAYLARIN OLASILIĞI</div>
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Olasılık Çarkı ve Torba Simülatörü</h2>
+        <p style="font-size: 0.85rem; color: #cbd5e1;">Kesin olay, imkânsız olay, eş olasılıklı durumlar ve büyük sayılar kanununu canlı döndürerek keşfedin.</p>
+      </div>
+
+      <div class="sim-grid">
+        <!-- Wheel -->
+        <div class="card">
+          <div class="card-title">🎯 1. Deney: 8 Dilimli Olasılık Çarkı</div>
+          <div class="card-subtitle">4 Mavi, 2 Sarı, 2 Kırmızı Dilim</div>
+          <div class="wheel-wrap">
+            <div class="wheel-pointer"></div>
+            <svg id="prob-wheel" class="wheel-svg" viewBox="0 0 200 200">
+              <!-- Slices: 4 Blue (180deg), 2 Yellow (90deg), 2 Red (90deg) -->
+              <path d="M 100 100 L 100 0 A 100 100 0 0 1 100 200 Z" fill="#3b82f6" stroke="#0f172a" stroke-width="2"/>
+              <path d="M 100 100 L 100 200 A 100 100 0 0 1 0 100 Z" fill="#f59e0b" stroke="#0f172a" stroke-width="2"/>
+              <path d="M 100 100 L 0 100 A 100 100 0 0 1 100 0 Z" fill="#ef4444" stroke="#0f172a" stroke-width="2"/>
+              <circle cx="100" cy="100" r="14" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
+            </svg>
+          </div>
+          <div style="text-align: center; margin-bottom: 14px;">
+            <button class="cta-btn" onclick="spinWheel()" id="spin-btn">Çarkıfeleği Çevir!</button>
+            <div id="wheel-result" style="margin-top: 10px; font-weight: 700; font-size: 0.9rem; color: var(--primary);"></div>
+          </div>
+          <div style="font-size: 0.8rem; color: #cbd5e1; line-height: 1.6; background: #020617; padding: 12px; border-radius: 10px;">
+            • <strong>Eş Olasılıklı:</strong> Sarı (2) ve Kırmızı (2) eşit dilim sayısına sahip olduğu için gelme olasılıkları eşittir.<br>
+            • <strong>Daha Fazla Olasılık:</strong> Mavi (4) dilim sayısı en yüksek olduğu için gelme olasılığı en fazladır (%50).<br>
+            • <strong>İmkânsız Olay:</strong> Çarkta Yeşil dilim olmadığı için gelme olasılığı 0'dır (%0).
+          </div>
+        </div>
+
+        <!-- Bag -->
+        <div class="card">
+          <div class="card-title">🎲 2. Deney: Gizemli Bilye Torbası</div>
+          <div class="card-subtitle">Mavi (5), Kırmızı (5), Yeşil (2), Sarı (0)</div>
+          <div class="bag-preview" id="marble-bag-box"></div>
+          <div style="display: flex; justify-content: center; gap: 10px; margin: 16px 0;">
+            <button class="cta-btn" style="background: var(--accent-green);" onclick="drawMarble(1)">1 Bilye Çek</button>
+            <button class="secondary-btn" onclick="drawMarble(10)">10 Kez Çek</button>
+            <button class="secondary-btn" onclick="drawMarble(50)">50 Kez Simüle Et</button>
+          </div>
+          <div id="bag-stats-box" style="font-size: 0.82rem; background: #020617; border-radius: 10px; padding: 12px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: TEACHER GUIDE -->
+    <div id="tab-guide" class="tab-content">
+      <div class="guide-section">
+        <div class="guide-badge">PEDAGOJİK ÇERÇEVE</div>
+        <h2 class="guide-heading">1. Oyunun Adı ve Teması</h2>
+        <p style="font-size: 0.88rem; line-height: 1.6; color: #cbd5e1;">
+          <strong>Oyunun Adı:</strong> Veri Dedektifleri: Gizemli Ada Vakası & Olasılık Avcıları<br>
+          <strong>Konsept:</strong> 6. sınıf öğrencilerinin 4 kişilik araştırma ekipleri halinde adadaki verileri toplayıp sıklık tablosuna ve sütun grafiğine döktüğü, aritmetik ortalama ve açıklıkla şüphelileri elediği, olasılık çarkı ile sandığı açtığı işbirlikçi bir matematik macerasıdır.
+        </p>
+      </div>
+
+      <div class="guide-section">
+        <div class="guide-badge">MÜFREDAT UYUMU</div>
+        <h2 class="guide-heading">2. MEB 6. Sınıf Matematik Kazanımları</h2>
+        <ul style="font-size: 0.85rem; line-height: 1.6; color: #cbd5e1; padding-left: 20px;">
+          <li><strong>M.6.4.1.1:</strong> İki veri grubunu karşılaştırmayı gerektiren araştırma soruları üretir ve veri toplar.</li>
+          <li><strong>M.6.4.1.2:</strong> İki gruba ait verileri ikili sıklık tablosu ve sütun grafiği ile gösterir.</li>
+          <li><strong>M.6.4.1.3:</strong> İki gruba ait verileri ikili sütun grafiği kullanarak yorumlar.</li>
+          <li><strong>M.6.4.1.4:</strong> Aritmetik ortalama ve açıklığı hesaplar; istikrar ve yayılım açısından yorumlar.</li>
+          <li><strong>M.6.4.2.1:</strong> Basit olayların olasılığını yorumlar (Kesin olay, imkânsız olay, eş olasılıklı olaylar).</li>
+        </ul>
+      </div>
+
+      <div class="guide-section">
+        <div class="guide-badge">PEDAGOJİK UYARILAR</div>
+        <h2 class="guide-heading">3. Sık Karşılaşılan 4 Büyük Kavram Yanılgısı</h2>
+        <div style="font-size: 0.85rem; line-height: 1.6; color: #cbd5e1; display: grid; gap: 12px;">
+          <div style="background: #020617; padding: 12px; border-radius: 8px;">
+            <strong style="color: var(--accent-red);">1. Ortalama Yanılgısı:</strong> Ortalamanın mutlaka gruptaki sayılardan biri sanılması veya virgüllü çıkınca hata yapıldığı düşüncesi. <em>Çözüm: Denge noktası ve eşit paylaştırma metaforu kullanın.</em>
+          </div>
+          <div style="background: #020617; padding: 12px; border-radius: 8px;">
+            <strong style="color: var(--accent-red);">2. Açıklık Yanılgısı:</strong> Açıklığın sadece en büyük sayı sanılması veya açıklık büyüdükçe grubun daha başarılı olduğunun düşünülmesi. <em>Çözüm: Açıklığın küçük olmasının "daha istikrarlı/tutarlı" performans anlamına geldiğini gösterin.</em>
+          </div>
+          <div style="background: #020617; padding: 12px; border-radius: 8px;">
+            <strong style="color: var(--accent-red);">3. Eksen Yanılgısı:</strong> Grafikte dikey eksenin sıfırdan başlatılmaması veya adımların eşit olmaması. <em>Çözüm: Eşit aralıklı olmayan eksenin görsel aldatmaca yarattığını atölyede gösterin.</em>
+          </div>
+          <div style="background: #020617; padding: 12px; border-radius: 8px;">
+            <strong style="color: var(--accent-red);">4. Olasılıkta Öznel Algı:</strong> "Bence kesin" günlük dili ile matematiksel kesinliğin karıştırılması. <em>Çözüm: Gerçekleşme şansı %100 olan durumları (yalnızca mavi topların olduğu torbadan mavi çekmek) kesin olay olarak tanımlayın.</em>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <div class="guide-badge">DERECELİ PUANLAMA ANAHTARI</div>
+        <h2 class="guide-heading">4. Süreç Odaklı Değerlendirme Rubriği (25 Puan)</h2>
+        <div style="overflow-x: auto;">
+          <table class="rubric-table">
+            <thead>
+              <tr>
+                <th>Boyut</th>
+                <th style="color: var(--accent-red);">Başlangıç (1-2 Puan)</th>
+                <th style="color: var(--primary);">Geliştirilmeli (3 Puan)</th>
+                <th style="color: var(--accent-green);">Yetkin (4-5 Puan)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Veri & Sıklık</strong></td>
+                <td>Çetele tutarken hata yapar, frekans toplamını bulamaz.</td>
+                <td>Tabloyu doldurur ancak ikili gruplarda yönlendirme ister.</td>
+                <td>İki gruba ait verileri bağımsızca eksiksiz düzenler ve yorumlar.</td>
+              </tr>
+              <tr>
+                <td><strong>Sütun Grafiği</strong></td>
+                <td>Eksen ölçeğini kuramaz, sütun boylarını okuyamaz.</td>
+                <td>Grafiği çizer fakat iki grubu karşılaştırmada zorlanır.</td>
+                <td>Eşit ölçekli ikili sütun grafiği çizer; farkları doğru analiz eder.</td>
+              </tr>
+              <tr>
+                <td><strong>Ortalama & Açıklık</strong></td>
+                <td>Formülleri karıştırır, açıklığı sadece en büyük sayı sanır.</td>
+                <td>Değerleri hesaplar fakat "istikrar" yorumunu yapamaz.</td>
+                <td>Ortalama ve açıklığı hatasız bulur; istikrar farkını mantıkla açıklar.</td>
+              </tr>
+              <tr>
+                <td><strong>Olasılık Muhakemesi</strong></td>
+                <td>Kesin ve imkansız kavramlarını öznel inançla karıştırır.</td>
+                <td>Hangi olayın daha olası olduğunu söyler fakat gerekçelendiremez.</td>
+                <td>Kesin (1), imkansız (0) ve eş olasılığı oranlarla açıklar.</td>
+              </tr>
+              <tr>
+                <td><strong>Matematik Dili & İş Birliği</strong></td>
+                <td>Takımda pasif kalır, matematik terimlerini kullanmaz.</td>
+                <td>Verilen görevi tamamlar, sonuçları paylaşır.</td>
+                <td>Takımını yönlendirir, argümanlarını matematik diliyle savunur.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    MEB 6. Sınıf Matematik 2. Tema: "Veriden Olasılığa" Eğitim ve Oyunlaştırma Projesi · Tek Dosya Çevrimdışı Sürüm
+  </footer>
+
+  <script>
+    // Audio synthesizer via Web Audio API (Zero external files needed)
+    let audioCtx = null;
+    let isAudioMuted = false;
+
+    function initAudio() {
+      if (!audioCtx && typeof window !== 'undefined') {
+        const AudioClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioClass) audioCtx = new AudioClass();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleAudio() {
+      isAudioMuted = !isAudioMuted;
+      document.getElementById('audio-btn').innerText = isAudioMuted ? '🔇 Ses Kapalı' : '🔊 Ses Açık';
+      if (!isAudioMuted) playSound('click');
+    }
+
+    function playSound(type) {
+      if (isAudioMuted) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      const t = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      if (type === 'click') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, t);
+        osc.frequency.exponentialRampToValueAtTime(300, t + 0.05);
+        gain.gain.setValueAtTime(0.1, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
+        osc.start(t);
+        osc.stop(t + 0.05);
+      } else if (type === 'correct') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(523.25, t);
+        osc.frequency.setValueAtTime(659.25, t + 0.08);
+        osc.frequency.setValueAtTime(783.99, t + 0.16);
+        gain.gain.setValueAtTime(0.12, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+        osc.start(t);
+        osc.stop(t + 0.3);
+      } else if (type === 'wrong') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(180, t);
+        osc.frequency.linearRampToValueAtTime(120, t + 0.2);
+        gain.gain.setValueAtTime(0.12, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+        osc.start(t);
+        osc.stop(t + 0.22);
+      } else if (type === 'spin') {
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(450, t);
+        gain.gain.setValueAtTime(0.04, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
+        osc.start(t);
+        osc.stop(t + 0.04);
+      }
+    }
+
+    // GAME DATA
+    const CASES = {
+      case1: {
+        id: 'case1',
+        levelTitle: 'Seviye 1: Çırak Dedektif',
+        title: 'Korsan Gemisindeki Meyve Kasaları',
+        story: 'Liman kayıt defterine göre korsanların bıraktığı 4 çeşit meyve kasası şöyledir: Elma (12), Muz (8), Portakal (12), Kivi (4).',
+        unit: 'kasa',
+        groupA: 'Meyveler',
+        data: [
+          { label: 'Elma', valA: 12, color: '#ef4444' },
+          { label: 'Muz', valA: 8, color: '#f59e0b' },
+          { label: 'Portakal', valA: 12, color: '#f97316' },
+          { label: 'Kivi', valA: 4, color: '#10b981' }
+        ],
+        reward: 'Pusula Anahtarı & Bronz Büyüteç Nişanı',
+        questions: [
+          {
+            stage: '1. Adım: Sıklık Tablosu',
+            text: 'Limandaki tüm meyve kasalarının toplam frekansı (sayısı) kaçtır?',
+            hint: 'Elma (12) + Muz (8) + Portakal (12) + Kivi (4) toplamını bulun.',
+            options: ['32 kasa', '36 kasa', '40 kasa', '28 kasa'],
+            correct: 1,
+            expl: 'Tebrikler! 12 + 8 + 12 + 4 = 36 kasadır. Sıklık tablosu toplamı 36 olarak doğrulandı.'
+          },
+          {
+            stage: '2. Adım: Sütun Grafiği Analizi',
+            text: 'Grafiğe bakıldığında hangi iki meyve birbirine eşittir ve en az olan meyve hangisidir?',
+            hint: 'Sütunların dikey boylarını karşılaştırın.',
+            options: ['Elma ve Muz eşit', 'Elma ve Portakal eşit (12); Kivi en az (4)', 'Kivi ve Portakal eşit', 'Tümü farklıdır'],
+            correct: 1,
+            expl: 'Harika gözlem! Elma ve Portakal 12 birimle eşittir; en kısa sütun 4 birimle Kivi’ye aittir.'
+          },
+          {
+            stage: '3. Adım: Aritmetik Ortalama & Açıklık',
+            text: 'Bu 4 meyve kasasının Aritmetik Ortalaması ve Açıklığı sırasıyla kaçtır?',
+            hint: 'Ortalama = 36 / 4. Açıklık = En büyük (12) - En küçük (4).',
+            options: ['Ortalama: 9, Açıklık: 8', 'Ortalama: 8, Açıklık: 12', 'Ortalama: 9, Açıklık: 12', 'Ortalama: 10, Açıklık: 6'],
+            correct: 0,
+            expl: 'Mükemmel dedektiflik! Ortalama = 36 / 4 = 9 kasa. Açıklık = 12 - 4 = 8 kasadır.'
+          },
+          {
+            stage: '4. Adım: Olasılık ve Gizemli Sandık',
+            text: 'Rastgele açılan bir kasadan "Elma" veya "Portakal" çıkma olasılığı için hangisi doğrudur?',
+            hint: 'Elma sayısı (12) ile Portakal sayısı (12) eşittir.',
+            options: ['Elma çıkması imkansız bir olaydır.', 'Elma çıkma olasılığı ile Portakal çıkma olasılığı eşittir (Eş Olasılıklı).', 'Kivi çıkma olasılığı daha fazladır.', 'Karpuz çıkması kesin olaydır.'],
+            correct: 1,
+            expl: 'Kusursuz çıkarım! Sayıları eşit olduğu için Elma ve Portakal çıkması eş olasılıklıdır. Listede Karpuz olmadığı için karpuz imkânsız olaydır.'
+          }
+        ]
+      },
+      case2: {
+        id: 'case2',
+        levelTitle: 'Seviye 2: Usta Dedektif',
+        title: 'Gizemli Mağara & İkili Grup Analizi',
+        story: 'Gündüz Ekibi ve Gece Ekibi mağarada 5 gün boyunca değerli taşlar toplamıştır.',
+        unit: 'adet taş',
+        groupA: 'Gündüz',
+        groupB: 'Gece',
+        data: [
+          { label: '1. Gün', valA: 14, valB: 10 },
+          { label: '2. Gün', valA: 16, valB: 18 },
+          { label: '3. Gün', valA: 15, valB: 8 },
+          { label: '4. Gün', valA: 13, valB: 22 },
+          { label: '5. Gün', valA: 17, valB: 17 }
+        ],
+        reward: 'Gümüş Yıldız Dedektif Brövesi',
+        questions: [
+          {
+            stage: '1. Adım: İkili Sıklık Tablosu',
+            text: 'Gündüz Ekibi (14, 16, 15, 13, 17) ve Gece Ekibi (10, 18, 8, 22, 17) 5 günde toplam kaçar taş toplamıştır?',
+            hint: 'Gündüz: 14+16+15+13+17. Gece: 10+18+8+22+17.',
+            options: ['Gündüz: 75, Gece: 75', 'Gündüz: 70, Gece: 80', 'Gündüz: 75, Gece: 70', 'Gündüz: 80, Gece: 75'],
+            correct: 0,
+            expl: 'Doğru! Her iki ekibin 5 günlük toplamı da 75 taştır. (Ortalamaları da 15’tir).'
+          },
+          {
+            stage: '2. Adım: İkili Sütun Grafiği Analizi',
+            text: 'Grafikte Gece Ekibi’nin Gündüz Ekibi’ne en büyük farkı attığı gün hangisidir?',
+            hint: 'Gece sütununun en yüksek fark yaptığı günü inceleyin.',
+            options: ['2. Gün', '4. Gün (9 taş fark)', '5. Gün', '1. Gün'],
+            correct: 1,
+            expl: 'Mükemmel! 4. günde Gece Ekibi 22 taş, Gündüz Ekibi 13 taş toplamıştır (Fark: 22 - 13 = 9 taş).'
+          },
+          {
+            stage: '3. Adım: Açıklık & İstikrar Karşılaştırması',
+            text: 'Gündüz Açıklığı ile Gece Açıklığı kaçtır ve hangi ekip daha istikrarlıdır?',
+            hint: 'Gündüz: 17 - 13 = 4. Gece: 22 - 8 = 14. Açıklığı küçük olan daha istikrarlıdır.',
+            options: ['Gündüz: 4, Gece: 14 — Gündüz Ekibi daha istikrarlıdır', 'Gündüz: 14, Gece: 4 — Gece daha istikrarlıdır', 'Her iki grubun açıklığı da 10’dur', 'Gündüz: 5, Gece: 12'],
+            correct: 0,
+            expl: 'Harika bir istatistik yorumu! Açıklığı küçük olan Gündüz Ekibi çok daha dengeli ve istikrarlıdır.'
+          },
+          {
+            stage: '4. Adım: Olasılık Analizi',
+            text: 'Torbadaki 40 Zümrüt, 25 Yakut, 10 Safir ve 0 Elmas için hangisi KESİNLİKLE YANLIŞTIR?',
+            hint: 'Zümrüt: 40, Safir: 10. Eşit olabilirler mi?',
+            options: ['Elmas çekilmesi imkansız olaydır.', 'Zümrüt çekme olasılığı Yakut’tan fazladır.', 'Safir çekilme olasılığı ile Zümrüt çekilme olasılığı eşittir.', 'Bir taş çekilmesi kesin olaydır.'],
+            correct: 2,
+            expl: 'Doğru! Zümrüt (40) ile Safir (10) sayıları eşit olmadığı için olasılıkları da eşit DEĞİLDİR!'
+          }
+        ]
+      },
+      case3: {
+        id: 'case3',
+        levelTitle: 'Seviye 3: Efsanevi Baş Dedektif',
+        title: 'Tapınak Şifresi & Olasılık Çarkı',
+        story: 'Antik tapınak silindirlerindeki ilk 5 sayı şunlardır: (18, 24, 15, 30, 21). 6 sayının aritmetik ortalaması tam 22 olmalıdır.',
+        unit: 'puan',
+        groupA: 'Silindir Değerleri',
+        data: [
+          { label: '1. Silindir', valA: 18 },
+          { label: '2. Silindir', valA: 24 },
+          { label: '3. Silindir', valA: 15 },
+          { label: '4. Silindir', valA: 30 },
+          { label: '5. Silindir', valA: 21 },
+          { label: '6. Silindir', valA: 24 }
+        ],
+        reward: 'Altın Baş Dedektif Nişanı',
+        questions: [
+          {
+            stage: '1. Adım: Eksik Veriyi Bulma',
+            text: '6 sayının aritmetik ortalamasının 22 olması için kayıp 6. silindirin değeri kaç olmalıdır?',
+            hint: 'Toplam = 6 × 22 = 132 olmalıdır. İlk 5 sayının toplamı 108’dir.',
+            options: ['20', '22', '24', '26'],
+            correct: 2,
+            expl: 'Dahice! 6 × 22 = 132. İlk 5 toplamı = 108. 6. silindir = 132 - 108 = 24 olmalıdır!'
+          },
+          {
+            stage: '2. Adım: Açıklık Hesabı',
+            text: 'Tamamlanan grupta (18, 24, 15, 30, 21, 24) Açıklık kaçtır?',
+            hint: 'Açıklık = En Büyük (30) - En Küçük (15).',
+            options: ['12', '15', '18', '9'],
+            correct: 1,
+            expl: 'Doğru! 30 - 15 = 15’tir.'
+          },
+          {
+            stage: '3. Adım: Veri Değişimi Analizi',
+            text: 'Eğer 30 yerine yanlışlıkla 18 girilseydi, ortalama ve açıklık nasıl değişirdi?',
+            hint: 'Toplam küçülürse ortalama ne olur? En büyük değer düşerse açıklık ne olur?',
+            options: ['Ortalama artar, açıklık değişmez', 'Ortalama ve açıklık her ikisi de azalırdı', 'İkisi de sabit kalırdı', 'Ortalama sabit kalır, açıklık artardı'],
+            correct: 1,
+            expl: 'Tebrikler! Toplam azaldığı için ortalama düşer; en büyük değer 24 olacağı için açıklık 15’ten 9’a (24-15) gerilerdi.'
+          },
+          {
+            stage: '4. Adım: Olasılık Çarkı',
+            text: '8 dilimli çarkta 4 Mavi, 2 Sarı, 2 Kırmızı dilim vardır. Hangisi doğrudur?',
+            hint: 'Sarı (2) ve Kırmızı (2) eşit dilimdedir.',
+            options: ['Mavi ve Kırmızı eşit olasılıklıdır.', 'Yeşil gelmesi kesin olaydır.', 'Sarı ve Kırmızı eşit dilimle eş olasılıklıdır; Mavi en fazladır.', 'Kırmızı imkansızdır.'],
+            correct: 2,
+            expl: 'Kusursuz Baş Dedektif muhakemesi! Sarı ve Kırmızı eş olasılıklıdır; Mavi en fazla olasılığa sahiptir.'
+          }
+        ]
+      }
+    };
+
+    let currentCaseKey = 'case1';
+    let currentStepIdx = 0;
+    let selectedOptionIdx = null;
+    let isAnswerLocked = false;
+    let currentScore = 0;
+
+    function switchTab(tabId) {
+      playSound('click');
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      
+      const target = document.getElementById('tab-' + tabId);
+      if (target) target.classList.add('active');
+
+      const btn = document.getElementById('btn-tab-' + tabId);
+      if (btn) btn.classList.add('active');
+
+      if (tabId === 'workshop') renderWorkshop();
+      if (tabId === 'prob') renderBag();
+    }
+
+    function startCase(caseKey) {
+      playSound('click');
+      currentCaseKey = caseKey;
+      currentStepIdx = 0;
+      selectedOptionIdx = null;
+      isAnswerLocked = false;
+      currentScore = 0;
+
+      document.getElementById('game-intro').style.display = 'none';
+      document.getElementById('level-selection-container').style.display = 'none';
+      document.getElementById('game-victory').style.display = 'none';
+      document.getElementById('game-play').style.display = 'block';
+
+      renderCaseUI();
+    }
+
+    function returnToLevelSelect() {
+      playSound('click');
+      document.getElementById('game-intro').style.display = 'block';
+      document.getElementById('level-selection-container').style.display = 'block';
+      document.getElementById('game-victory').style.display = 'none';
+      document.getElementById('game-play').style.display = 'none';
+    }
+
+    function resetCase() {
+      startCase(currentCaseKey);
+    }
+
+    function renderCaseUI() {
+      const c = CASES[currentCaseKey];
+      const q = c.questions[currentStepIdx];
+
+      document.getElementById('hud-level-title').innerText = c.levelTitle;
+      document.getElementById('hud-case-title').innerText = c.title;
+      document.getElementById('hud-score').innerText = currentScore + ' Puan';
+
+      // Update step pills
+      for (let i = 0; i < 4; i++) {
+        const pill = document.getElementById('step-pill-' + i);
+        pill.className = 'step-pill';
+        if (i < currentStepIdx) pill.classList.add('completed');
+        else if (i === currentStepIdx) pill.classList.add('active');
+      }
+
+      // Render chart
+      renderSvgChart('chart-viewport', c.data, c.groupA, c.groupB, c.unit);
+
+      // Raw sample box
+      let rawHtml = '<strong>Kayıt Defteri Verileri: </strong>';
+      c.data.forEach(d => {
+        rawHtml += `<span style="display: inline-block; background: #0f172a; border: 1px solid #334155; padding: 4px 8px; border-radius: 6px; margin: 2px;">
+          ${d.label}: <strong style="color: var(--primary);">${d.valA}</strong> ${d.valB !== undefined ? '/ <strong style="color: var(--accent-blue);">' + d.valB + '</strong>' : ''} ${c.unit}
+        </span> `;
+      });
+      document.getElementById('raw-evidence-box').innerHTML = rawHtml;
+
+      // Question
+      document.getElementById('question-stage').innerText = q.stage;
+      document.getElementById('question-text').innerText = q.text;
+      document.getElementById('hint-text').innerText = q.hint;
+
+      // Options
+      const optContainer = document.getElementById('options-container');
+      optContainer.innerHTML = '';
+      selectedOptionIdx = null;
+      isAnswerLocked = false;
+      document.getElementById('feedback-container').innerHTML = '';
+      document.getElementById('submit-answer-btn').style.display = 'inline-block';
+      document.getElementById('submit-answer-btn').disabled = true;
+      document.getElementById('submit-answer-btn').style.opacity = '0.4';
+      document.getElementById('next-step-btn').style.display = 'none';
+
+      q.options.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<span class="option-letter">${String.fromCharCode(65 + idx)}</span> <span>${optText}</span>`;
+        btn.onclick = () => selectOption(idx);
+        optContainer.appendChild(btn);
+      });
+    }
+
+    function selectOption(idx) {
+      if (isAnswerLocked) return;
+      playSound('click');
+      selectedOptionIdx = idx;
+
+      const btns = document.querySelectorAll('#options-container .option-btn');
+      btns.forEach((b, i) => {
+        b.className = 'option-btn' + (i === idx ? ' selected' : '');
+      });
+
+      const submitBtn = document.getElementById('submit-answer-btn');
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+    }
+
+    function submitAnswer() {
+      if (selectedOptionIdx === null || isAnswerLocked) return;
+      isAnswerLocked = true;
+
+      const c = CASES[currentCaseKey];
+      const q = c.questions[currentStepIdx];
+      const isCorrect = selectedOptionIdx === q.correct;
+
+      const btns = document.querySelectorAll('#options-container .option-btn');
+      btns.forEach((b, i) => {
+        if (i === q.correct) b.classList.add('correct');
+        else if (i === selectedOptionIdx) b.classList.add('wrong');
+      });
+
+      const fb = document.getElementById('feedback-container');
+      if (isCorrect) {
+        playSound('correct');
+        currentScore += 25;
+        document.getElementById('hud-score').innerText = currentScore + ' Puan';
+        fb.innerHTML = `<div class="feedback-box correct">✅ <strong>Harika Çıkarım!</strong> ${q.expl}</div>`;
+      } else {
+        playSound('wrong');
+        fb.innerHTML = `<div class="feedback-box wrong">❌ <strong>Hatalı Tespit!</strong> Doğru cevap: <strong>${q.options[q.correct]}</strong>.<br>${q.expl}</div>`;
+      }
+
+      document.getElementById('submit-answer-btn').style.display = 'none';
+      const nextBtn = document.getElementById('next-step-btn');
+      nextBtn.style.display = 'inline-block';
+      nextBtn.innerText = (currentStepIdx + 1 < 4) ? 'Sonraki Aşamaya Geç →' : 'Sandığı Aç ve Vakayı Bitir! 🏆';
+    }
+
+    function nextStep() {
+      playSound('click');
+      if (currentStepIdx + 1 < 4) {
+        currentStepIdx++;
+        renderCaseUI();
+      } else {
+        // Victory!
+        playSound('correct');
+        document.getElementById('game-play').style.display = 'none';
+        document.getElementById('game-victory').style.display = 'block';
+
+        const c = CASES[currentCaseKey];
+        document.getElementById('victory-desc').innerText = `"${c.title}" vaka dosyasını tüm verileri analiz ederek, sütun grafiğini okuyarak, ortalama ve olasılıkları çözerek başarıyla aydınlattın!`;
+        document.getElementById('victory-reward').innerText = c.reward;
+        document.getElementById('victory-score').innerText = currentScore + ' Puan';
+      }
+    }
+
+    // Dynamic SVG Bar Chart Renderer
+    function renderSvgChart(containerId, data, groupAName, groupBName, unit) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const isDouble = Boolean(groupBName);
+      let maxVal = 10;
+      data.forEach(d => {
+        if (d.valA > maxVal) maxVal = d.valA;
+        if (d.valB && d.valB > maxVal) maxVal = d.valB;
+      });
+      maxVal = Math.ceil(maxVal * 1.25);
+
+      const w = 500, h = 220;
+      const pad = { top: 20, right: 20, bottom: 40, left: 40 };
+      const innerW = w - pad.left - pad.right;
+      const innerH = h - pad.top - pad.bottom;
+      const colW = innerW / data.length;
+      const barW = isDouble ? colW * 0.35 : colW * 0.55;
+
+      let svg = `<svg viewBox="0 0 ${w} ${h}" style="width: 100%; height: auto; max-height: 250px;">`;
+
+      // 4 grid lines
+      for (let i = 0; i <= 4; i++) {
+        const val = Math.round((maxVal / 4) * i);
+        const y = pad.top + innerH - (val / maxVal) * innerH;
+        svg += `<line x1="${pad.left}" y1="${y}" x2="${w - pad.right}" y2="${y}" stroke="#334155" stroke-dasharray="3 3"/>`;
+        svg += `<text x="${pad.left - 6}" y="${y + 4}" fill="#94a3b8" font-size="10" text-anchor="end">${val}</text>`;
+      }
+
+      // baseline
+      svg += `<line x1="${pad.left}" y1="${pad.top + innerH}" x2="${w - pad.right}" y2="${pad.top + innerH}" stroke="#64748b" stroke-width="1.5"/>`;
+
+      // bars
+      data.forEach((d, i) => {
+        const cx = pad.left + i * colW + colW / 2;
+        const hA = Math.max(2, (d.valA / maxVal) * innerH);
+        const yA = pad.top + innerH - hA;
+        const xA = isDouble ? cx - barW - 3 : cx - barW / 2;
+
+        svg += `<rect x="${xA}" y="${yA}" width="${barW}" height="${hA}" fill="#f59e0b" rx="2"/>`;
+        svg += `<text x="${xA + barW / 2}" y="${yA - 4}" fill="#fcd34d" font-size="10" font-weight="bold" text-anchor="middle">${d.valA}</text>`;
+
+        if (isDouble && d.valB !== undefined) {
+          const hB = Math.max(2, (d.valB / maxVal) * innerH);
+          const yB = pad.top + innerH - hB;
+          const xB = cx + 3;
+          svg += `<rect x="${xB}" y="${yB}" width="${barW}" height="${hB}" fill="#38bdf8" rx="2"/>`;
+          svg += `<text x="${xB + barW / 2}" y="${yB - 4}" fill="#7dd3fc" font-size="10" font-weight="bold" text-anchor="middle">${d.valB}</text>`;
+        }
+
+        svg += `<text x="${cx}" y="${pad.top + innerH + 18}" fill="#cbd5e1" font-size="10" text-anchor="middle">${d.label}</text>`;
+      });
+
+      svg += `</svg>`;
+      container.innerHTML = svg;
+    }
+
+    // WORKSHOP TAB LOGIC
+    let workshopData = [
+      { label: 'Pazartesi', valA: 12, valB: 8 },
+      { label: 'Salı', valA: 15, valB: 14 },
+      { label: 'Çarşamba', valA: 18, valB: 20 },
+      { label: 'Perşembe', valA: 10, valB: 16 },
+      { label: 'Cuma', valA: 20, valB: 17 }
+    ];
+
+    function toTally(num) {
+      if (num <= 0) return '-';
+      const fives = Math.floor(num / 5);
+      const rem = num % 5;
+      return '卌 '.repeat(fives) + '|'.repeat(rem);
+    }
+
+    function renderWorkshop() {
+      const tbody = document.getElementById('workshop-table-body');
+      tbody.innerHTML = '';
+
+      let sumA = 0, sumB = 0;
+      const valsA = [], valsB = [];
+
+      workshopData.forEach((row, i) => {
+        sumA += row.valA;
+        sumB += row.valB;
+        valsA.push(row.valA);
+        valsB.push(row.valB);
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><input type="text" value="${row.label}" onchange="updateWsRow(${i}, 'label', this.value)" style="background:transparent; border:none; border-bottom: 1px solid #334155; color:#fff; width:100px;"></td>
+          <td><input type="number" min="0" max="99" value="${row.valA}" onchange="updateWsRow(${i}, 'valA', parseInt(this.value)||0)" style="background:#020617; border: 1px solid #334155; color:var(--primary); width:60px; padding:3px 6px; border-radius:4px;"></td>
+          <td><input type="number" min="0" max="99" value="${row.valB}" onchange="updateWsRow(${i}, 'valB', parseInt(this.value)||0)" style="background:#020617; border: 1px solid #334155; color:var(--accent-blue); width:60px; padding:3px 6px; border-radius:4px;"></td>
+          <td class="tally">${toTally(row.valA)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('ws-total-a').innerText = sumA + ' adet';
+      document.getElementById('ws-total-b').innerText = sumB + ' adet';
+
+      const n = workshopData.length;
+      const meanA = (sumA / n).toFixed(1);
+      const maxA = Math.max(...valsA), minA = Math.min(...valsA);
+      const rangeA = maxA - minA;
+
+      const meanB = (sumB / n).toFixed(1);
+      const maxB = Math.max(...valsB), minB = Math.min(...valsB);
+      const rangeB = maxB - minB;
+
+      document.getElementById('ws-stats-a').innerText = `Toplam: ${sumA} | Ortalama: ${meanA} | En Büyük: ${maxA}, En Küçük: ${minA} -> Açıklık: ${rangeA}`;
+      document.getElementById('ws-stats-b').innerText = `Toplam: ${sumB} | Ortalama: ${meanB} | En Büyük: ${maxB}, En Küçük: ${minB} -> Açıklık: ${rangeB}`;
+
+      renderSvgChart('workshop-chart-container', workshopData, 'A Grubu', 'B Grubu', 'adet');
+    }
+
+    function updateWsRow(index, field, val) {
+      playSound('click');
+      workshopData[index][field] = val;
+      renderWorkshop();
+    }
+
+    // PROBABILITY TAB LOGIC
+    let wheelDeg = 0;
+    let isWheelSpinning = false;
+
+    function spinWheel() {
+      if (isWheelSpinning) return;
+      isWheelSpinning = true;
+      document.getElementById('spin-btn').disabled = true;
+      document.getElementById('wheel-result').innerText = 'Çark dönüyor...';
+
+      let clicks = 0;
+      const clickTimer = setInterval(() => {
+        playSound('spin');
+        clicks++;
+        if (clicks > 15) clearInterval(clickTimer);
+      }, 120);
+
+      const added = 1440 + Math.floor(Math.random() * 360);
+      wheelDeg += added;
+      const wheel = document.getElementById('prob-wheel');
+      wheel.style.transform = `rotate(${wheelDeg}deg)`;
+
+      setTimeout(() => {
+        isWheelSpinning = false;
+        clearInterval(clickTimer);
+        document.getElementById('spin-btn').disabled = false;
+
+        const norm = (360 - (wheelDeg % 360)) % 360;
+        let color = 'Mavi';
+        if (norm >= 180 && norm < 270) color = 'Sarı';
+        else if (norm >= 270) color = 'Kırmızı';
+
+        playSound('correct');
+        document.getElementById('wheel-result').innerHTML = `🎯 Gelen Renk: <strong style="color:#fff; background:${color === 'Mavi' ? '#3b82f6' : color === 'Sarı' ? '#f59e0b' : '#ef4444'}; padding: 2px 8px; border-radius: 4px;">${color}</strong>`;
+      }, 2400);
+    }
+
+    // Marble Bag Logic
+    const bagMarbles = { 'Mavi': 5, 'Kırmızı': 5, 'Yeşil': 2, 'Sarı': 0 };
+    let bagHistory = {};
+    let totalDrawCount = 0;
+
+    function renderBag() {
+      const box = document.getElementById('marble-bag-box');
+      box.innerHTML = '';
+      const colors = { 'Mavi': '#3b82f6', 'Kırmızı': '#ef4444', 'Yeşil': '#10b981', 'Sarı': '#f59e0b' };
+
+      Object.entries(bagMarbles).forEach(([name, count]) => {
+        for (let i = 0; i < count; i++) {
+          const m = document.createElement('div');
+          m.className = 'marble-dot';
+          m.style.backgroundColor = colors[name];
+          m.title = name;
+          box.appendChild(m);
+        }
+      });
+      updateBagStats();
+    }
+
+    function drawMarble(times) {
+      playSound(times === 1 ? 'click' : 'correct');
+      const list = [];
+      Object.entries(bagMarbles).forEach(([name, count]) => {
+        for (let i = 0; i < count; i++) list.push(name);
+      });
+      if (list.length === 0) return;
+
+      for (let i = 0; i < times; i++) {
+        const picked = list[Math.floor(Math.random() * list.length)];
+        bagHistory[picked] = (bagHistory[picked] || 0) + 1;
+        totalDrawCount++;
+      }
+      updateBagStats();
+    }
+
+    function updateBagStats() {
+      const statBox = document.getElementById('bag-stats-box');
+      let html = `<strong>Toplam Çekim: ${totalDrawCount} Kez</strong><br>`;
+      const totalInBag = Object.values(bagMarbles).reduce((a, b) => a + b, 0);
+
+      Object.entries(bagMarbles).forEach(([name, count]) => {
+        const drawn = bagHistory[name] || 0;
+        const theo = totalInBag > 0 ? Math.round((count / totalInBag) * 100) : 0;
+        const exp = totalDrawCount > 0 ? Math.round((drawn / totalDrawCount) * 100) : 0;
+        html += `<div style="margin: 4px 0;">${name}: Teorik Olasılık: ${count}/${totalInBag} (%${theo}) | Çekilen: ${drawn} (%${exp})</div>`;
+      });
+      html += `<div style="margin-top: 8px; color: var(--text-muted); font-size: 0.75rem;">• Sarı bilye sayısı 0 olduğu için çekilmesi <em>İmkânsız Olaydır</em>.</div>`;
+      statBox.innerHTML = html;
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderWorkshop();
+      renderBag();
+    });
+  </script>
+</body>
+</html>
