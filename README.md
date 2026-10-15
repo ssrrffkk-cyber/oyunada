@@ -1,0 +1,2 @@
+# oyunada
+olasılık
